@@ -1,6 +1,6 @@
 // IT Learning Academy — Préinscription
 // Remplacer l'URL ci-dessous par l'URL du Web App Apps Script (voir README.md)
-const SCRIPT_URL = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzO60htgY9Ekq6lotVOceqfkQ3YcZHo38UG6uXl3yS9rDspUkeet4fDseJbzwXo6aR4/exec";
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
