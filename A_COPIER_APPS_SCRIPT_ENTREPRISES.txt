@@ -1,32 +1,36 @@
 ========================================================
-CODE A COPIER DANS GOOGLE APPS SCRIPT (SHEET ENTREPRISES)
+CODE CORRIGE A RECOLLER DANS GOOGLE APPS SCRIPT (SHEET ENTREPRISES)
 ========================================================
 
-1. Ouvre le Google Sheet "IT Learning Academy - Demandes Entreprises"
-   https://docs.google.com/spreadsheets/d/10fuGeT_4Rn2QzfecfMniQi-i-399hwAX4eINcctpLeE/edit
+L'erreur précédente ("Cannot read properties of null (reading 'getSheets')")
+vient du fait que le script n'était pas lié à la feuille. Le code ci-dessous
+cible directement le Sheet par son ID, ça règle le problème.
 
-2. Menu : Extensions > Apps Script
+1. Ouvre le projet Apps Script que tu as déjà créé (celui avec l'URL /exec
+   que tu m'as donnée), ou ouvre le Sheet et refais Extensions > Apps Script.
 
-3. Sélectionne TOUT le code existant (Ctrl+A) et supprime-le (Suppr)
+2. Sélectionne TOUT le code existant (Ctrl+A) et supprime-le (Suppr)
 
-4. Colle exactement le code ci-dessous (entre les lignes ===)
+3. Colle exactement le code ci-dessous (entre les lignes ===)
 
-5. Clique sur l'icône disquette (Enregistrer)
+4. Clique sur l'icône disquette (Enregistrer)
 
-6. Clique sur "Déployer" > "Nouveau déploiement"
-   - Type : Application Web
-   - Exécuter en tant que : Moi
-   - Qui a accès : Tout le monde
-   Puis "Déployer" et autorise les permissions demandées.
+5. Clique sur "Déployer" > "Gérer les déploiements"
+   - Clique sur le crayon (Modifier) à côté du déploiement existant
+   - Version : "Nouvelle version"
+   - Clique "Déployer"
+   (l'URL /exec reste la même, pas besoin de me la redonner)
 
-7. Copie l'URL qui se termine par /exec et envoie-la à Claude.
+6. Renvoie-moi un message "c'est corrigé" et je testerai à nouveau.
 
 ========================================================
 CODE (tout ce qui suit, jusqu'à la ligne de fin) :
 ========================================================
 
+const SHEET_ID = "10fuGeT_4Rn2QzfecfMniQi-i-399hwAX4eINcctpLeE";
+
 function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
 
   let data;
   try {

@@ -1,6 +1,6 @@
 // IT Learning Academy — Demande de devis entreprises
 // Remplacer l'URL ci-dessous par l'URL du Web App Apps Script (voir README.md)
-const SCRIPT_URL = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL_ENTREPRISES";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxIlpWTtMQtKx9hkmPQA3ub_fYDxzekcdnMVI-Qaphu17uUf--ukMqbN3DrMQwHJfdvoQ/exec";
 
 document.getElementById("year").textContent = new Date().getFullYear();
 

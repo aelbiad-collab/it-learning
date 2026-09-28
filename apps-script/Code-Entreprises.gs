@@ -6,8 +6,10 @@
  * Déploiement : voir README.md à la racine du projet.
  */
 
+const SHEET_ID = "10fuGeT_4Rn2QzfecfMniQi-i-399hwAX4eINcctpLeE";
+
 function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const sheet = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
 
   let data;
   try {
