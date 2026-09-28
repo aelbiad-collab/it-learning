@@ -1,45 +1,54 @@
-# IT Learning Academy — Landing page de préinscription
+# IT Learning Academy — Landing pages de préinscription
 
-Landing page statique (HTML/CSS/JS, sans framework, sans build) pour la préinscription aux formations IT Learning Academy. Le formulaire n'exige aucun document joint ; les données sont envoyées directement dans un Google Sheet.
+Deux landing pages statiques (HTML/CSS/JS, sans framework, sans build) :
+- `index.html` — préinscription particuliers
+- `entreprises.html` — demande de devis entreprises (B2B)
+
+Aucun formulaire n'exige de document joint ; les données sont envoyées directement dans un Google Sheet dédié par page.
 
 Contenu basé sur le catalogue `CATALOGUE FORMATION_ItLearning.ai.pdf` et l'identité visuelle de [www.itlearning-campus.com](https://www.itlearning-campus.com) (couleurs, polices, logo).
 
 ## Structure
 
 ```
-index.html          page principale
-style.css            styles
-script.js             logique du formulaire (fetch vers Apps Script)
-assets/               logo, favicon
-apps-script/Code.gs   script serveur Google Apps Script (à coller dans le Sheet)
+index.html                        préinscription particuliers
+entreprises.html                  demande de devis entreprises
+style.css                         styles partagés
+script.js                         logique du formulaire particuliers
+entreprises.js                    logique du formulaire entreprises
+assets/                           logo, favicon
+apps-script/Code.gs                script serveur — Sheet Préinscriptions
+apps-script/Code-Entreprises.gs    script serveur — Sheet Demandes Entreprises
 ```
 
-## 1. Connecter le formulaire au Google Sheet
+## 1. Connecter les formulaires aux Google Sheets
 
-Un Google Sheet a déjà été créé avec les bonnes colonnes :
-**IT Learning Academy - Préinscriptions**
+Deux Google Sheets ont déjà été créés :
+
+**A. Préinscriptions particuliers**
 https://docs.google.com/spreadsheets/d/1ZPPPxvZFrcBjnJNfVUZ1JclRnIGOWltqQ9paDCojYNU/edit
+→ coller `apps-script/Code.gs`, déployer, mettre l'URL `/exec` dans `script.js` (`SCRIPT_URL`)
 
-Étapes (2 minutes) :
+**B. Demandes entreprises**
+https://docs.google.com/spreadsheets/d/10fuGeT_4Rn2QzfecfMniQi-i-399hwAX4eINcctpLeE/edit
+→ coller `apps-script/Code-Entreprises.gs`, déployer, mettre l'URL `/exec` dans `entreprises.js` (`SCRIPT_URL`)
 
-1. Ouvre le Sheet ci-dessus.
+Étapes (2 minutes, à répéter pour chaque Sheet) :
+
+1. Ouvre le Sheet concerné.
 2. Menu **Extensions > Apps Script**.
-3. Supprime le code par défaut et colle le contenu de `apps-script/Code.gs`.
+3. Supprime le code par défaut et colle le contenu du fichier `.gs` correspondant.
 4. Clique **Déployer > Nouveau déploiement**.
 5. Type : **Application Web**.
    - Exécuter en tant que : **Moi**
    - Qui a accès : **Tout le monde**
 6. Clique **Déployer**, autorise les permissions demandées.
 7. Copie l'**URL de l'application Web** générée (se termine par `/exec`).
-8. Ouvre `script.js` et remplace :
-   ```js
-   const SCRIPT_URL = "REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL";
-   ```
-   par l'URL copiée.
+8. Colle-la dans la constante `SCRIPT_URL` du fichier JS correspondant.
 
-Chaque soumission du formulaire ajoutera une ligne : horodatage, prénom, nom, email, téléphone, ville/campus, profil, domaine de formation, format souhaité, message, source.
+Chaque soumission ajoutera une ligne (horodatage + champs du formulaire + source).
 
-> Si tu modifies `Code.gs` plus tard, il faut redéployer (**Déployer > Gérer les déploiements > Modifier > Nouvelle version**).
+> Si tu modifies un `.gs` plus tard, il faut redéployer (**Déployer > Gérer les déploiements > Modifier > Nouvelle version**).
 
 ## 2. Tester en local
 

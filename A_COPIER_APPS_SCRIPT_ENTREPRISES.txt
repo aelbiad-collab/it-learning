@@ -1,0 +1,63 @@
+========================================================
+CODE A COPIER DANS GOOGLE APPS SCRIPT (SHEET ENTREPRISES)
+========================================================
+
+1. Ouvre le Google Sheet "IT Learning Academy - Demandes Entreprises"
+   https://docs.google.com/spreadsheets/d/10fuGeT_4Rn2QzfecfMniQi-i-399hwAX4eINcctpLeE/edit
+
+2. Menu : Extensions > Apps Script
+
+3. Sélectionne TOUT le code existant (Ctrl+A) et supprime-le (Suppr)
+
+4. Colle exactement le code ci-dessous (entre les lignes ===)
+
+5. Clique sur l'icône disquette (Enregistrer)
+
+6. Clique sur "Déployer" > "Nouveau déploiement"
+   - Type : Application Web
+   - Exécuter en tant que : Moi
+   - Qui a accès : Tout le monde
+   Puis "Déployer" et autorise les permissions demandées.
+
+7. Copie l'URL qui se termine par /exec et envoie-la à Claude.
+
+========================================================
+CODE (tout ce qui suit, jusqu'à la ligne de fin) :
+========================================================
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+
+  let data;
+  try {
+    data = JSON.parse(e.postData.contents);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ ok: false, error: "invalid_json" })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  sheet.appendRow([
+    new Date(),
+    data.entreprise || "",
+    data.secteur || "",
+    data.contact || "",
+    data.fonction || "",
+    data.email || "",
+    data.telephone || "",
+    data.effectif || "",
+    data.domaine || "",
+    data.format || "",
+    data.delai || "",
+    data.message || "",
+    data.source || ""
+  ]);
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ ok: true })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+========================================================
+FIN DU CODE
+========================================================
